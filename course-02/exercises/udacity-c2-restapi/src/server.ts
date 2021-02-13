@@ -1,3 +1,4 @@
+require('dotenv').config();
 import express from 'express';
 import { sequelize } from './sequelize';
 
@@ -8,7 +9,9 @@ import bodyParser from 'body-parser';
 import { V0MODELS } from './controllers/v0/model.index';
 
 (async () => {
-  await sequelize.addModels(V0MODELS);
+  await sequelize.addModels(V0MODELS);  
+  // To make sure our database is in sync with our model in sequelize (same level of updates)
+  // It does that by applying the concept migrations (The migration Folder contains the log of changes)
   await sequelize.sync();
 
   const app = express();
@@ -35,5 +38,6 @@ import { V0MODELS } from './controllers/v0/model.index';
   app.listen( port, () => {
       console.log( `server running http://localhost:${ port }` );
       console.log( `press CTRL+C to stop server` );
+      console.log( 'App Environment: ' + process.env.AWS_PROFILE);
   } );
 })();
