@@ -12,6 +12,7 @@ import { FeedUploadButtonComponent } from './feed-upload/feed-upload-button/feed
 import { FeedProviderService } from './services/feed.provider.service';
 
 const entryComponents = [FeedUploadComponent];
+// Where we're actually make use of data and render them into views.
 const components = [FeedListComponent, FeedItemComponent, FeedUploadComponent, FeedUploadButtonComponent];
 
 @NgModule({
