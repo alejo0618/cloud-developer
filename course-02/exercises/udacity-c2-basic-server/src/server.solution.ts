@@ -92,7 +92,9 @@ import { Car, cars as cars_list } from './cars';
   // it should fail gracefully if no matching car is found
   app.get( "/cars/:id", ( req: Request, res: Response ) => {
     // destruct our path params
-    let { id } = req.params;
+    // It doesn't work since destructing JS just assign values without any manipulation.
+    //let { id } = req.params;
+    let id: number = Number(req.params);
 
     // check to make sure the id is set
     if (!id) { 

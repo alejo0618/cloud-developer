@@ -1,11 +1,13 @@
 import AWS = require('aws-sdk');
 import { config } from './config/config';
 
-const c = config.dev;
+const c = config;
 
 //Configure AWS
-var credentials = new AWS.SharedIniFileCredentials({profile: 'default'});
-AWS.config.credentials = credentials;
+if(c.aws_profile !== "DEPLOYED") {
+  var credentials = new AWS.SharedIniFileCredentials({profile: 'default'});
+  AWS.config.credentials = credentials;
+}
 
 export const s3 = new AWS.S3({
   signatureVersion: 'v4',
@@ -15,6 +17,7 @@ export const s3 = new AWS.S3({
 
 
 /* getGetSignedUrl generates an aws signed url to retreive an item
+ * Download a resource 
  * @Params
  *    key: string - the filename to be put into the s3 bucket
  * @Returns:
@@ -34,6 +37,7 @@ export function getGetSignedUrl( key: string ): string{
 }
 
 /* getPutSignedUrl generates an aws signed url to put an item
+ * Upload a resource
  * @Params
  *    key: string - the filename to be retreived from s3 bucket
  * @Returns:
